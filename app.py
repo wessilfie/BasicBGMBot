@@ -1,13 +1,10 @@
 #Python libraries that we need to import for our bot
-import requests
 import random
 from flask import Flask, request
 from pymessenger.bot import Bot
-from pymessenger import Element, Button
-import json
 
 app = Flask(__name__)
-ACCESS_TOKEN = 'ACCESS_TOKEN'
+AACCESS_TOKEN = 'ACCESS_TOKEN'
 VERIFY_TOKEN = 'VERIFY_TOKEN'
 bot = Bot (ACCESS_TOKEN)
 
@@ -26,17 +23,16 @@ def receive_message():
        for event in output['entry']:
           messaging = event['messaging']
           for message in messaging:
-            #Facebook Messenger ID for user so we know where to send response back to
-            recipient_id = message['sender']['id']
-
-            if message['message'].get('text'):
-                response_sent_text = get_message()
-                send_message_user = send_message(recipient_id, response_sent_text)
+            if message.get('message'):
+                #Facebook Messenger ID for user so we know where to send response back to
+                recipient_id = message['sender']['id']
+                if message['message'].get('text'):
+                    response_sent_text = get_message()
+                    send_message(recipient_id, response_sent_text)
                 #if user sends us a GIF, photo,video, or any other non-text item
-            if message['message'].get('attachments'):
-                response_sent_nontext = get_message()
-                send_message_user = send_message(recipient_id, response_sent_nontext)
-
+                if message['message'].get('attachments'):
+                    response_sent_nontext = get_message()
+                    send_message(recipient_id, response_sent_nontext)
     return "Message Processed"
 
 
@@ -57,7 +53,7 @@ def get_message():
 #uses PyMessenger to send response to user
 def send_message(recipient_id, response):
     #sends user the text message provided via input response parameter
-    send_user = bot.send_text_message(recipient_id, response)
+    bot.send_text_message(recipient_id, response)
     return "success"
 
 if __name__ == "__main__":
