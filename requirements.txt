@@ -1,2 +1,2 @@
-pip3 install Flask==0.12.2
-pip3 install pymessenger==0.0.7.0
+Flask==0.12.2
+pymessenger==0.0.7.0
