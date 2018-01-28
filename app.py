@@ -2,7 +2,7 @@
 import random
 from flask import Flask, request
 from pymessenger.bot import Bot
-
+import os 
 app = Flask(__name__)
 ACCESS_TOKEN = 'ACCESS_TOKEN'   #ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = 'VERIFY_TOKEN'   #VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
